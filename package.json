@@ -1,0 +1,14 @@
+{
+  "name": "niconcepts-academy",
+  "version": "1.0.0",
+  "description": "Exercise files for building a website with Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Thounda Craig",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
