@@ -1,7 +1,5 @@
 // import modules
 const express = require('express');
-const speakerRoute = require('./speakers');
-const feedbackRoute = require('./feedback');
 
 // Define Express Router object
 const router = express.Router();
@@ -10,11 +8,13 @@ const router = express.Router();
 module.exports = () => {
   // Establish routes
   router.get('/', (request, response) => {
-    response.render('pages/index', { pageTitle: 'Welcome' });
+    return response.send(`Speakers list`);
   });
 
-  router.use('/speakers', speakerRoute());
-  router.use('/feedback', feedbackRoute());
+  router.get('/:shortname', (request, response) => {
+    return response.send(`Detail page of ${request.params.shortname}`);
+  });
 
+  // Return router object results
   return router;
 };
