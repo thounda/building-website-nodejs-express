@@ -1,7 +1,5 @@
 // import modules
 const express = require('express');
-const speakerRoute = require('./speakers');
-const feedbackRoute = require('./feedback');
 
 // Define Express Router object
 const router = express.Router();
@@ -10,11 +8,13 @@ const router = express.Router();
 module.exports = () => {
   // Establish routes
   router.get('/', (request, response) => {
-    response.render('pages/index', { pageTitle: 'Welcome' });
+    return response.send(`Feedback page`);
   });
 
-  router.use('/speakers', speakerRoute());
-  router.use('/feedback', feedbackRoute());
+  router.post('/', (request, response) => {
+    return response.send(`Feedback form posted`);
+  });
 
+  // Return router object results
   return router;
 };
