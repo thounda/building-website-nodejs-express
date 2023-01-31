@@ -2,6 +2,7 @@
 const { response, application } = require('express');
 const express = require('express');
 const path = require('path');
+const routes = require('./routes');
 
 // create an instance of express module
 const app = express();
@@ -16,15 +17,8 @@ app.set('views', path.join(__dirname, './views'));
 // Define middleware to point to 'static' folder
 app.use(express.static(path.join(__dirname, 'static')));
 
-// Establish routes
-app.get('/', (request, response) => {
-  response.render('pages/index', { pageTitle: 'Welcome' });
-});
-
-// Server the 'Speakers' page per specified route
-app.get('/speakers', (request, response) => {
-  response.sendFile(path.join(__dirname, '/static/speakers.html'));
-});
+// A Catch-All route
+app.use('/', routes());
 
 // Start the Nodejs server on the specified port
 app.listen(port, () => {
