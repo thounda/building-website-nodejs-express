@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 
 // Establish routes
 app.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, '/static/index.html'));
+  response.render('pages/index', { pageTitle: 'Welcome' });
 });
 
 // Server the 'Speakers' page per specified route
