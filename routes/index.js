@@ -9,6 +9,6 @@ module.exports = () => {
   // Establish routes
   router.get('/', (request, response) => {
     response.render('pages/index', { pageTitle: 'Welcome' });
-    return router;
   });
+  return router;
 };
