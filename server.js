@@ -9,8 +9,12 @@ const app = express();
 // Define a port for the Express server
 const port = 3000;
 
-// Define middleware to point to 'static' folder
-app.use(express.static(path.join(__dirname, 'static')));
+// Inform Express to use EJS engine under 'views' path
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, './views'));
+
+app.app // Define middleware to point to 'static' folder
+  .use(express.static(path.join(__dirname, 'static')));
 
 // Establish routes
 app.get('/', (request, response) => {
