@@ -13,8 +13,8 @@ const port = 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
-app.app // Define middleware to point to 'static' folder
-  .use(express.static(path.join(__dirname, 'static')));
+// Define middleware to point to 'static' folder
+app.use(express.static(path.join(__dirname, 'static')));
 
 // Establish routes
 app.get('/', (request, response) => {
@@ -26,7 +26,7 @@ app.get('/speakers', (request, response) => {
   response.sendFile(path.join(__dirname, '/static/speakers.html'));
 });
 
-//Start the Nodejs server on the specified port
+// Start the Nodejs server on the specified port
 app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
