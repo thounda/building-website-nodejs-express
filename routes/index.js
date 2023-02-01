@@ -7,14 +7,14 @@ const feedbackRoute = require('./feedback');
 const router = express.Router();
 
 // Create a function for the router module where args can be passed into function
-module.exports = () => {
+module.exports = (params) => {
   // Establish routes
   router.get('/', (request, response) => {
     response.render('pages/index', { pageTitle: 'Welcome' });
   });
 
-  router.use('/speakers', speakerRoute());
-  router.use('/feedback', feedbackRoute());
+  router.use('/speakers', speakerRoute(params));
+  router.use('/feedback', feedbackRoute(params));
 
   return router;
 };

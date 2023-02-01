@@ -5,10 +5,14 @@ const express = require('express');
 const router = express.Router();
 
 // Create a function for the router module where args can be passed into function
-module.exports = () => {
-  // Establish routes
-  router.get('/', (request, response) => {
-    return response.send(`Speakers list`);
+module.exports = (params) => {
+  // Destructure assignment to pass in params
+  const { speakersService } = params;
+
+  // Establish routes using async / await
+  router.get('/', async (request, response) => {
+    const speakers = await speakersService.getList();
+    return response.json(speakers);
   });
 
   router.get('/:shortname', (request, response) => {
