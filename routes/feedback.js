@@ -5,10 +5,13 @@ const express = require('express');
 const router = express.Router();
 
 // Create a function for the router module where args can be passed into function
-module.exports = () => {
+module.exports = (params) => {
+  // Destructing assignment
+  const { feedbackService } = params;
   // Establish routes
-  router.get('/', (request, response) => {
-    return response.send(`Feedback page`);
+  router.get('/', async (request, response) => {
+    const feedback = await feedbackService.getList();
+    return response.json(feedback);
   });
 
   router.post('/', (request, response) => {
