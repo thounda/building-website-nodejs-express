@@ -2,6 +2,8 @@
 const { response, application } = require('express');
 const express = require('express');
 const path = require('path');
+const cookieSession = require('cookie-session');
+
 const FeedbackService = require('./services/FeedbackService');
 const SpeakersService = require('./services/SpeakerService');
 
@@ -17,6 +19,17 @@ const app = express();
 
 // Define a port for the Express server
 const port = 3000;
+
+// Trust cookies that are passed thru a reversed proxy
+app.set('trust proxy', 1);
+
+// Set cookie-session middleware
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['LMisWcAPp7zh4Jz', '0kMa0Btar4Y19tH'],
+  })
+);
 
 // Inform Express to use EJS engine under 'views' path
 app.set('view engine', 'ejs');
