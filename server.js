@@ -35,8 +35,23 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
+// Define variable that is set during app start up
+app.locals.siteName = 'ROUX Meetups';
+
 // Define middleware to point to 'static' folder
 app.use(express.static(path.join(__dirname, 'static')));
+
+// Define a global template variable
+app.use(async (request, response, next) => {
+  try {
+    const names = await speakersService.getNames();
+    response.locals.speakerNames = names;
+    console.log(response.locals);
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+});
 
 // A Catch-All route handlers
 app.use(
