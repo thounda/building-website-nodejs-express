@@ -8,8 +8,11 @@ const router = express.Router();
 
 // Create a function for the router module where args can be passed into function
 module.exports = (params) => {
+  // Get the speakersService
+  const { speakersService } = params;
+
   // Establish routes
-  router.get('/', (request, response) => {
+  router.get('/', async (request, response) => {
     /*
     // Insert a visit counter with conditional logic - Used just for demonstration in this section
     if (!request.session.visitcount) {
@@ -18,7 +21,11 @@ module.exports = (params) => {
     request.session.visitcount += 1;
     console.log(`Number of visits ${request.session.visitcount}`);
 */
-    response.render('layout', { pageTitle: 'Welcome', template: 'index' });
+    // Fetch the Speakers list
+    const topSpeakers = await speakersService.getList();
+    console.log(topSpeakers);
+
+    response.render('layout', { pageTitle: 'Welcome', template: 'index', topSpeakers });
   });
 
   router.use('/speakers', speakerRoute(params));
