@@ -23,7 +23,7 @@ module.exports = (params) => {
 */
     // Fetch the Speakers list
     const topSpeakers = await speakersService.getList();
-    console.log(topSpeakers);
+    // console.log(topSpeakers);
 
     response.render('layout', { pageTitle: 'Welcome', template: 'index', topSpeakers });
   });

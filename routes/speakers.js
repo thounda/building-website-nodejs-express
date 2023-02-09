@@ -11,8 +11,11 @@ module.exports = (params) => {
 
   // Establish routes using async / await
   router.get('/', async (request, response) => {
+    // Fetch the Speakers list
     const speakers = await speakersService.getList();
-    return response.json(speakers);
+    // console.log(topSpeakers);
+
+    response.render('layout', { pageTitle: 'Speakers', template: 'speakers', speakers });
   });
 
   router.get('/:shortname', (request, response) => {
