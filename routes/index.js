@@ -21,11 +21,12 @@ module.exports = (params) => {
     request.session.visitcount += 1;
     console.log(`Number of visits ${request.session.visitcount}`);
 */
-    // Fetch the Speakers list
+    // Fetch the Speakers list and artwork data
+    const artwork = await speakersService.getAllArtwork();
     const topSpeakers = await speakersService.getList();
     // console.log(topSpeakers);
 
-    response.render('layout', { pageTitle: 'Welcome', template: 'index', topSpeakers });
+    response.render('layout', { pageTitle: 'Welcome', template: 'index', topSpeakers, artwork });
   });
 
   router.use('/speakers', speakerRoute(params));
