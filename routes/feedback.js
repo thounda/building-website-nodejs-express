@@ -9,9 +9,13 @@ module.exports = (params) => {
   // Destructing assignment
   const { feedbackService } = params;
   // Establish routes
-  router.get('/', async (request, response) => {
-    const feedback = await feedbackService.getList();
-    return response.json(feedback);
+  router.get('/', async (request, response, next) => {
+    try {
+      const feedback = await feedbackService.getList();
+      return response.json(feedback);
+    } catch (err) {
+      return next(err);
+    }
   });
 
   router.post('/', (request, response) => {

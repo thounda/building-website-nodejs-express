@@ -13,6 +13,7 @@ const speakersService = new SpeakersService('./data/speakers.json');
 
 // Create instance for routes
 const routes = require('./routes');
+const { request } = require('http');
 
 // create an instance of express module
 const app = express();
@@ -40,6 +41,15 @@ app.locals.siteName = 'ROUX Meetups';
 
 // Define middleware to point to 'static' folder
 app.use(express.static(path.join(__dirname, 'static')));
+
+/* This is an example showing how to throw error in async app
+//  Example to, intentionally, throw error in logic - but won't work in an async application
+app.get('/throw', (request, response, next) => {
+  setTimeout(() => {
+    return next(new Error('Something did throw!'));
+  }, 500);
+});
+*/
 
 // Define a global template variable
 app.use(async (request, response, next) => {
