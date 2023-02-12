@@ -55,6 +55,7 @@ app.use((request, response, next) => {
   return next(createError(404, 'File not found'));
 });
 
+// Creating a custom error page
 app.use((err, request, response, next) => {
   response.locals.message = err.message;
   const status = err.status || 500;
