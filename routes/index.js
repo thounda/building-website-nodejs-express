@@ -12,21 +12,22 @@ module.exports = (params) => {
   const { speakersService } = params;
 
   // Establish routes
-  router.get('/', async (request, response) => {
-    /*
-    // Insert a visit counter with conditional logic - Used just for demonstration in this section
-    if (!request.session.visitcount) {
-      request.session.visitcount = 0;
-    }
-    request.session.visitcount += 1;
-    console.log(`Number of visits ${request.session.visitcount}`);
-*/
-    // Fetch the Speakers list and artwork data
-    const artwork = await speakersService.getAllArtwork();
-    const topSpeakers = await speakersService.getList();
-    // console.log(topSpeakers);
+  router.get('/', async (request, response, next) => {
+    // Set a Try/ Catch block to handle errors
+    try {
+      // Fetch the Speakers list and artwork data
+      const artwork = await speakersService.getAllArtwork();
+      const topSpeakers = await speakersService.getList();
 
-    response.render('layout', { pageTitle: 'Welcome', template: 'index', topSpeakers, artwork });
+      return response.render('layout', {
+        pageTitle: 'Welcome',
+        template: 'index',
+        topSpeakers,
+        artwork,
+      });
+    } catch (err) {
+      return next(err);
+    }
   });
 
   router.use('/speakers', speakerRoute(params));
