@@ -41,6 +41,12 @@ app.locals.siteName = 'ROUX Meetups';
 // Define middleware to point to 'static' folder
 app.use(express.static(path.join(__dirname, 'static')));
 
+app.get('/throw', (request, response, next) => {
+  setTimeout(() => {
+    return next(new Error('Something did throw!'));
+  }, 500);
+});
+
 // Define a global template variable
 app.use(async (request, response, next) => {
   try {
