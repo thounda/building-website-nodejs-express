@@ -5,11 +5,10 @@ const feedbackRoute = require('./feedback');
 
 const router = express.Router();
 
-module.exports = params => {
+module.exports = (params) => {
   const { speakersService } = params;
 
   router.get('/', async (request, response, next) => {
-    return next(new Error('Some error'));
     try {
       const artwork = await speakersService.getAllArtwork();
       const topSpeakers = await speakersService.getList();
