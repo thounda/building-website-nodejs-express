@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= siteName %> | <%=pageTitle%></title>
+    <title><%= siteName %> | <%= pageTitle %></title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -26,9 +26,6 @@
       <%- include('./partials/navigation') %>
     </header>
 
-    <!-- Insert EJS dynamic main content -->
-    <%- include(`../pages/${template}`) %>
-    <!-- End of EJS dynamic main content-->
-    <%- include('./partials/scripts') %>
+    <%- include(`../pages/${template}`) %> <%- include('./partials/scripts') %>
   </body>
 </html>

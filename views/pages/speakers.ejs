@@ -2,13 +2,12 @@
   <div class="row">
     <div class="col-sm-8">
       <article class="speakerslist maincontent">
-        <% speakers.forEach(function(speaker) { %>
-
+        <% speakers.forEach(function (speaker) {%>
         <div class="mb-4">
           <h4 class="speakerslist-title"><%=speaker.title%></h4>
           <div class="speakerslist-name">
             with
-            <a href="/speakers/<%=speaker.shortname %> "><%=speaker.name%></a>
+            <a href="/speakers/<%=speaker.shortname%>"><%=speaker.name%></a>
           </div>
           <div class="row speakerslist-info mt-2">
             <div class="col-sm-3">
@@ -16,20 +15,20 @@
                 <img
                   class="speakerslist-img rounded-circle img-fluid"
                   src="/images/speakers/<%=speaker.shortname%>_tn.jpg"
-                  alt="<%=speaker.name%>"
+                  alt="Photo of <%=speaker.name%>"
                 />
               </a>
             </div>
-            <div class="col-sm-9"><%=speaker.summary%></div>
+            <div class="col-sm-9">
+              <%=speaker.summary%>
+            </div>
           </div>
         </div>
-
-        <% }); %>
+        <%})%>
       </article>
     </div>
     <aside class="col-sm-4">
-      <!-- Define include to add sidebar content -->
-      <%-include('./partials/artwork')%>
+      <%- include('./partials/artwork') %>
     </aside>
   </div>
 </div>
