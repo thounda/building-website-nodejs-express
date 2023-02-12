@@ -58,6 +58,7 @@ app.use((request, response, next) => {
 // Creating a custom error page
 app.use((err, request, response, next) => {
   response.locals.message = err.message;
+  console.error(err);
   const status = err.status || 500;
   response.locals.status = status;
   response.status(status);
