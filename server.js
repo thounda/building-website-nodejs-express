@@ -1,59 +1,48 @@
-// import modules to file
-const { response, application } = require('express');
 const express = require('express');
 const path = require('path');
 const cookieSession = require('cookie-session');
+const createError = require('http-errors');
 
 const FeedbackService = require('./services/FeedbackService');
 const SpeakersService = require('./services/SpeakerService');
 
-// create instances for feedback and services objects
 const feedbackService = new FeedbackService('./data/feedback.json');
 const speakersService = new SpeakersService('./data/speakers.json');
 
-// Create instance for routes
 const routes = require('./routes');
 
-// create an instance of express module
 const app = express();
 
-// Define a port for the Express server
+app.locals.siteName = 'ROUX Academy';
+
 const port = 3000;
 
-// Trust cookies that are passed thru a reversed proxy
 app.set('trust proxy', 1);
 
-// Set cookie-session middleware
 app.use(
   cookieSession({
     name: 'session',
-    keys: ['LMisWcAPp7zh4Jz', '0kMa0Btar4Y19tH'],
+    keys: ['Ghdur687399s7w', 'hhjjdf89s866799'],
   })
 );
 
-// Inform Express to use EJS engine under 'views' path
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
-// Define variable that is set during app start up
 app.locals.siteName = 'ROUX Meetups';
 
-// Define middleware to point to 'static' folder
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, './static')));
 
-// Define a global template variable
 app.use(async (request, response, next) => {
   try {
     const names = await speakersService.getNames();
     response.locals.speakerNames = names;
-    // console.log(response.locals);
     return next();
   } catch (err) {
     return next(err);
   }
 });
 
-// A Catch-All route handlers
 app.use(
   '/',
   routes({
@@ -62,7 +51,18 @@ app.use(
   })
 );
 
-// Start the Nodejs server on the specified port
+app.use((request, response, next) => {
+  return next(createError(404, 'File not found'));
+});
+
+app.use((err, request, response, next) => {
+  response.locals.message = err.message;
+  const status = err.status || 500;
+  response.locals.status = status;
+  response.status(status);
+  response.render('error');
+});
+
 app.listen(port, () => {
-  console.log(`Express server listening on port ${port}`);
+  console.log(`Express server listening on port ${port}!`);
 });
