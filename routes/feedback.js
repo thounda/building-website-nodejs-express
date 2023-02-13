@@ -1,4 +1,3 @@
-const { response } = require('express');
 const express = require('express');
 
 const { check, validationResult } = require('express-validator');
@@ -48,21 +47,17 @@ module.exports = (params) => {
         return response.redirect('/feedback');
       }
 
-      // Add sanitized data to file
       const { name, email, title, message } = request.body;
       await feedbackService.addEntry(name, email, title, message);
       request.session.feedback = {
-        message: 'Thank you for your feedback',
+        message: 'Thank you for your feedback!',
       };
-
-      // console.log(request.body);
       return response.redirect('/feedback');
     } catch (err) {
       return next(err);
     }
   });
 
-  // Setup a REST API method for posting an entry
   router.post('/api', validations, async (request, response, next) => {
     try {
       const errors = validationResult(request);

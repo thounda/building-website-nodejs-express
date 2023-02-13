@@ -28,7 +28,6 @@ app.use(
   })
 );
 
-// Inject body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -61,7 +60,6 @@ app.use((request, response, next) => {
   return next(createError(404, 'File not found'));
 });
 
-// Creating a custom error page
 app.use((err, request, response, next) => {
   response.locals.message = err.message;
   console.error(err);
